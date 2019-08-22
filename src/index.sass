@@ -1,0 +1,38 @@
+// colors 
+$baseDark: #2c2c2c
+$darkBlue: #35495E
+$cream: #fffadc
+
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box 
+    letter-spacing: 2px
+    outline: none
+
+=flexCenter()
+    display: flex 
+    justify-content: center 
+    align-items: center 
+    flex-wrap: wrap 
+=buttons() 
+    text-transform: uppercase
+    border: 2px solid $cream
+    border-radius: 8px
+    background-color: $darkBlue
+    color: $cream
+    font-weight: bold
+    cursor: pointer
+    transition: .3s linear 
+    &:hover 
+        border-color: $darkBlue
+        color: $darkBlue 
+        background-color: $cream
+
+
+body 
+    min-height: 100vh
+    color: #fff
+    font-family: 'Staatliches', sans-serif
+button:focus, a:focus, select:focus 
+    box-shadow: 0px 0px 4px 4px $cream
