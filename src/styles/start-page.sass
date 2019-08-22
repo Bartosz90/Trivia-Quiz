@@ -6,14 +6,13 @@
     +flexCenter()
     background-color: $baseDark
     transition: .5s
-    .header
-        width: 100%
-        text-align: center
     .credits
         position: absolute
         top: 20px 
         left: 20px
         width: auto
+        @media (max-width: 1000px)
+            visibility: hidden
         a 
             text-decoration: none
             color: #fff
@@ -31,8 +30,10 @@
                     background-color: blue 
                 100% 
                     background-color: red
-    header 
+    .header 
         +flexCenter()
+        width: 100%
+        text-align: center
         .brainContainer 
             position: absolute 
             left: 50% 
@@ -44,7 +45,9 @@
             @keyframes brainFadeIn 
                 100% 
                     opacity: 1
-
+            @media (max-width: 1000px)
+                width: 120px
+                top: 70px
             .brain
                 width: 100%
             .idea 
@@ -57,6 +60,10 @@
                         transform: scale(1.2)
                     100% 
                         transform: none
+                @media (max-width: 1000px)
+                    width: 40px
+                    top: -50px
+                    left: 50px
 
         h1  
             width: 100%
@@ -74,6 +81,17 @@
                 font-size: 60px
                 background-color: $cream
                 color: $baseDark
+                @media (max-width: 1000px)
+                    width: 60px
+                    height: 80px
+                @media (max-width: 450px)
+                    width: 45px
+                    height: 60px
+                    font-size: 45px
+                @media (max-width: 330px)
+                    width: 38px
+                    height: 55px
+                    font-size: 45px
             span:nth-of-type(odd) 
                 transform: rotate(5deg) scale(0)
                 animation: OddLetterAppear .7s forwards
@@ -103,9 +121,31 @@
         a 
             text-decoration: none 
             color: #fff
+        p 
+            @media (max-width: 1000px)
+                visibility: hidden
+    .scrollDown 
+        position: absolute
+        top: 85vh 
+        left: 20px
+        +buttons()
+        width: 35px
+        height: 35px
+        border-radius: 50%
+        z-index: 1
+        +flexCenter()
+        font-size: 18px
+        visibility: 
+        @media (max-width: 100px)
+            visibility: visible
+        .fas 
+            letter-spacing: 0
     .inputs     
         width: 30% 
         +flexCenter()
+        @media (max-width: 1000px)
+            width: 100%
+            margin-bottom: 20px
         h3 
             width: 100%
             text-align: center
@@ -121,15 +161,23 @@
             padding: 0 10px
             margin: 0 10px
             cursor: pointer    
+            @media (max-width: 450px)
+                margin-bottom: 10px
         button.active 
             box-shadow: 0px 0px 10px 5px $cream
     .startContainer 
         width: 100%
         text-align: center
+        @media (max-width: 1000px)
+            margin-bottom: 20px
         button 
             +buttons()
             height: 60px
             width: 170px
             font-size: 30px
+            @media (max-width: 1000px)
+                width: 140px
+                height: 45px
+                font-size: 25px
 .disappear 
     transform: scale(0)

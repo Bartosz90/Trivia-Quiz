@@ -24,10 +24,11 @@ $cream: #fffadc
     font-weight: bold
     cursor: pointer
     transition: .3s linear 
-    &:hover 
-        border-color: $darkBlue
-        color: $darkBlue 
-        background-color: $cream
+    @media (min-width: 1000px)
+        &:hover 
+            border-color: $darkBlue
+            color: $darkBlue 
+            background-color: $cream
 
 
 body 
