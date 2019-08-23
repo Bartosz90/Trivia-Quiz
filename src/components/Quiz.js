@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../styles/quiz.sass";
 import StartPage from "./StartPage";
 import Main from "./Main";
 import ScorePage from "./ScorePage";

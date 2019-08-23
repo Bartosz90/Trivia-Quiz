@@ -10,7 +10,7 @@ const ScorePage = ({
 }) => {
   const score = header.map(text => {
     return (
-      <h1 key={text.text} style={{ color: `${text.color}` }}>
+      <h1 key={text.text} style={{ color: `${text.color}` }} className="text">
         {text.text}
       </h1>
     );

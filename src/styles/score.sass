@@ -23,6 +23,9 @@
         margin: 20px 0
         font-size: 50px
         text-align: center
+        @media (max-width: 1000px)
+            font-size: 35px
+            margin: 10px 0
     span 
         color: green
     button 
@@ -30,3 +33,9 @@
         padding: 10px
         margin-top: 40px
         font-size: 20px
+    .text 
+        opacity: 0
+        animation: textAppear 1s linear forwards .5s
+        @keyframes textAppear 
+            100% 
+                opacity: 1
