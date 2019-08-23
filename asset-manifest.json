@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Trivia-Quiz/static/css/main.3e7bbe06.chunk.css",
-    "main.js": "/Trivia-Quiz/static/js/main.bab421b1.chunk.js",
-    "main.js.map": "/Trivia-Quiz/static/js/main.bab421b1.chunk.js.map",
+    "main.js": "/Trivia-Quiz/static/js/main.52f29809.chunk.js",
+    "main.js.map": "/Trivia-Quiz/static/js/main.52f29809.chunk.js.map",
     "runtime~main.js": "/Trivia-Quiz/static/js/runtime~main.cfc1e465.js",
     "runtime~main.js.map": "/Trivia-Quiz/static/js/runtime~main.cfc1e465.js.map",
     "static/js/2.cbee8a74.chunk.js": "/Trivia-Quiz/static/js/2.cbee8a74.chunk.js",
     "static/js/2.cbee8a74.chunk.js.map": "/Trivia-Quiz/static/js/2.cbee8a74.chunk.js.map",
     "index.html": "/Trivia-Quiz/index.html",
-    "precache-manifest.e6287a8840e54edb529700165d8b0b48.js": "/Trivia-Quiz/precache-manifest.e6287a8840e54edb529700165d8b0b48.js",
+    "precache-manifest.097776a9d64edd5258ce4d6f4ad4417f.js": "/Trivia-Quiz/precache-manifest.097776a9d64edd5258ce4d6f4ad4417f.js",
     "service-worker.js": "/Trivia-Quiz/service-worker.js",
     "static/css/main.3e7bbe06.chunk.css.map": "/Trivia-Quiz/static/css/main.3e7bbe06.chunk.css.map",
     "static/media/brain.png": "/Trivia-Quiz/static/media/brain.a8fa366d.png"
