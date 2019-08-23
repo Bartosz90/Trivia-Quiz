@@ -1,0 +1,26 @@
+@import "../index.sass"
+.main 
+    min-height: 100vh
+    +flexCenter()
+    background-color: $baseDark
+    .quiz 
+        width: 75%
+        +flexCenter()
+        h1 
+            text-align: center
+            width: 100%
+            margin-bottom: 30px
+            font-size: 50px
+        button 
+            width: 34% 
+            margin: 10px
+            +buttons()
+            padding: 15px 5px
+        .red 
+            background-color: red 
+        .green  
+            animation: blink .4s linear forwards
+            animation-iteration-count: 7
+            @keyframes blink 
+                100% 
+                    background-color: green

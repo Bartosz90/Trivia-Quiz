@@ -1,21 +1,12 @@
 import React, { Component } from "react";
 import "../styles/quiz.sass";
 import StartPage from "./StartPage";
-
-// const Question = ({ question, correct, answer }) => {
-//   return (
-//     <div>
-//       <h1 dangerouslySetInnerHTML={{ __html: `${question}` }} />
-//       <h2>{correct}</h2>
-//       <h3>{answer[0]}</h3>
-//       <h3>{answer[1]}</h3>
-//       <h3>{answer[2]}</h3>
-//     </div>
-//   );
-// };
+import Main from "./Main";
+import ScorePage from "./ScorePage";
 
 class Quiz extends Component {
   state = {
+    dataReady: false,
     questions: [],
     question: "",
     answer: "",
@@ -34,7 +25,13 @@ class Quiz extends Component {
       { id: 2, amount: 15, active: false }
     ],
     removeStartSection: false,
-    quizStarted: false
+    quizStarted: false,
+    currentQuestionIndex: 0,
+    shuffledAnswers: [],
+    correctAnswersCount: 0,
+    answered: false,
+    quizCompleted: false,
+    scorePageHeader: [{ color: "", text: "" }]
   };
 
   handleDataBtn = () => {
@@ -54,10 +51,16 @@ class Quiz extends Component {
         return response.json();
       })
       .then(response => {
-        console.log(response.results);
         let questions = this.state.questions.concat(response.results);
         this.setState({ questions });
+        this.shuffleAnswers(response.results);
       });
+    const counter = setInterval(() => {
+      if (this.state.questions.length > 0) {
+        this.setState({ dataReady: true });
+        clearInterval(counter);
+      }
+    }, 500);
   };
 
   handleSettings = (e, option) => {
@@ -98,6 +101,118 @@ class Quiz extends Component {
     }
   };
 
+  shuffleAnswers = array => {
+    let answers = array[this.state.currentQuestionIndex].incorrect_answers.map(
+      answer => {
+        return {
+          answer: answer,
+          correct: false,
+          class: ""
+        };
+      }
+    );
+    answers.push({
+      answer: array[this.state.currentQuestionIndex].correct_answer,
+      correct: true,
+      class: ""
+    });
+    for (let i = answers.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [answers[i], answers[j]] = [answers[j], answers[i]];
+    }
+    this.setState({ shuffledAnswers: answers });
+  };
+
+  handleAnswerBtns = e => {
+    this.setState({ answered: true });
+    if (this.state.currentQuestionIndex < this.state.questions.length - 1) {
+      setTimeout(() => {
+        this.setState({
+          currentQuestionIndex: this.state.currentQuestionIndex + 1
+        });
+        this.shuffleAnswers(this.state.questions);
+      }, 1000);
+    } else if (
+      this.state.questions.length ===
+      this.state.currentQuestionIndex + 1
+    ) {
+      setTimeout(() => {
+        const oneThird = parseInt(this.state.questions.length / 3);
+        const scorePageHeader = this.state.scorePageHeader.map(head => {
+          if (this.state.correctAnswersCount <= oneThird) {
+            head.color = "red";
+            head.text = "Too bad...";
+          } else if (this.state.correctAnswersCount <= oneThird * 2) {
+            head.color = "yellow";
+            head.text = "Not bad.";
+          } else if (
+            this.state.correctAnswersCount === this.state.questions.length
+          ) {
+            head.color = "green";
+            head.text = "PERFECT SCORE!!!";
+          } else {
+            head.color = "green";
+            head.text = "Nice score!";
+          }
+          return head;
+        });
+        this.setState({ scorePageHeader, quizCompleted: true });
+      }, 1000);
+    }
+    let shuffledAnswers = this.state.shuffledAnswers.map(answer => {
+      if (answer.answer === e.target.textContent) {
+        answer.class = "red";
+      }
+      if (answer.correct === true) {
+        answer.class = "green";
+      }
+
+      return answer;
+    });
+    this.setState({ shuffledAnswers });
+    if (e.target.attributes.correct.value === "true") {
+      this.setState({
+        correctAnswersCount: this.state.correctAnswersCount + 1
+      });
+    }
+    setTimeout(() => {
+      this.setState({
+        answered: false
+      });
+    }, 1000);
+  };
+  handleNewGame = () => {
+    this.setState({
+      dataReady: false,
+      questions: [],
+      question: "",
+      answer: "",
+      difficulty: "&difficulty=easy",
+      category: "",
+      amount: 5,
+      difficultyBtns: [
+        { id: 0, name: "easy", active: true },
+        { id: 1, name: "medium", active: false },
+        { id: 2, name: "hard", active: false },
+        { id: 3, name: "mixed", active: false }
+      ],
+      questionAmount: [
+        { id: 0, amount: 5, active: true },
+        { id: 1, amount: 10, active: false },
+        { id: 2, amount: 15, active: false }
+      ],
+      removeStartSection: false,
+      quizStarted: false,
+      currentQuestionIndex: 0,
+      shuffledAnswers: [],
+      correctAnswersCount: 0,
+      answered: false,
+      scorePageHeader: [{ color: "", text: "" }]
+    });
+    setTimeout(() => {
+      this.setState({ quizCompleted: false });
+    }, 500);
+  };
   render() {
     return (
       <>
@@ -110,20 +225,24 @@ class Quiz extends Component {
             removeStartSection={this.state.removeStartSection}
           />
         )}
-        {/* <div className="App">
-        <button onClick={this.handleDataBtn}>get data</button>
-        <button onClick={() => this.handleDifficulty("easy")}>Easy</button>
-        <button onClick={() => this.handleDifficulty("medium")}>Medium</button>
-        <button onClick={() => this.handleDifficulty("hard")}>Hard</button>
-
-        {this.state.data.length > 0 && (
-          // <Question
-          //   question={this.state.data[0].results[0].question}
-          //   answer={this.state.data[0].results[0].incorrect_answers}
-          //   correct={this.state.data[0].results[0].correct_answer}
-          // />
-        // )}
-      </div> */}
+        {this.state.dataReady && (
+          <Main
+            currentQuestionIndex={this.state.currentQuestionIndex}
+            questions={this.state.questions}
+            shuffledAnswers={this.state.shuffledAnswers}
+            click={this.handleAnswerBtns}
+            answered={this.state.answered}
+          />
+        )}
+        {this.state.quizCompleted && (
+          <ScorePage
+            correctAnswers={this.state.correctAnswersCount}
+            questions={this.state.questions}
+            header={this.state.scorePageHeader}
+            newGame={this.handleNewGame}
+            dataReady={this.state.dataReady}
+          />
+        )}
       </>
     );
   }
